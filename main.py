@@ -7,9 +7,9 @@ import pickle
 import os
 from datetime import timedelta
 
-with open('env.json', 'r') as env_json:
-    LUMERICAL_EXECUTABLE = json.load(env_json)["LUMERICAL_EXECUTABLE"]
-    QUEUE_SAVE_PATH = json.load(env_json)["QUEUE_SAVE_PATH"]
+ENV_JSON = 'env.json'
+LUMERICAL_EXECUTABLE = json.load(ENV_JSON)["LUMERICAL_EXECUTABLE"]
+QUEUE_SAVE_PATH = json.load(ENV_JSON)["QUEUE_SAVE_PATH"]
         
 def save(queue: queue.Queue) -> None:
     serialized_queue = pickle.dumps(queue)
@@ -51,4 +51,6 @@ def main():
     print(f"Finished all simulations.")
 
 if __name__ == "__main__":
-    main()
+    #main()
+    print(LUMERICAL_EXECUTABLE)
+    print(QUEUE_SAVE_PATH)
