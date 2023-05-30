@@ -28,6 +28,9 @@ class PickleableQueue:
 
     def get(self):
         return self.queue.get()
+    
+    def empty(self):
+        return self.queue.empty()
         
 def save(queue: PickleableQueue) -> None:
     serialized_queue = pickle.dumps(queue)
