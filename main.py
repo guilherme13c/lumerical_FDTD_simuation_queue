@@ -10,13 +10,25 @@ from datetime import timedelta
 ENV_JSON = 'env.json'
 LUMERICAL_EXECUTABLE = json.load(open(ENV_JSON))["LUMERICAL_EXECUTABLE"]
 QUEUE_SAVE_PATH = json.load(open(ENV_JSON))["QUEUE_SAVE_PATH"]
+   
+class PickleableQueue:
+    def __init__(self):
+        self.queue = queue.Queue()
+
+    def __getstate__(self):
+        return self.queue.queue
+
+    def __setstate__(self, state):
+        self.queue = queue.Queue()
+        for item in state:
+            self.queue.put(item)
         
-def save(queue: queue.Queue) -> None:
+def save(queue: PickleableQueue) -> None:
     serialized_queue = pickle.dumps(queue)
     with open(QUEUE_SAVE_PATH, 'wb') as file:
         file.write(serialized_queue)
 
-def load() -> queue.Queue:
+def load() -> PickleableQueue:
     with open(QUEUE_SAVE_PATH, 'rb') as file:
         serialized_queue = file.read()
     
@@ -37,7 +49,7 @@ def main():
     if os.path.exists(QUEUE_SAVE_PATH):
         simulations_queue = load()
     else:
-        simulations_queue = queue.Queue()
+        simulations_queue = PickleableQueue()
 
     for arg in sys.argv[1:]:
         simulations_queue.put(arg)
