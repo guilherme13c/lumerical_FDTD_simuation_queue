@@ -51,6 +51,4 @@ def main():
     print(f"Finished all simulations.")
 
 if __name__ == "__main__":
-    #main()
-    print(LUMERICAL_EXECUTABLE)
-    print(QUEUE_SAVE_PATH)
+    main()
