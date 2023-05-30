@@ -22,6 +22,12 @@ class PickleableQueue:
         self.queue = queue.Queue()
         for item in state:
             self.queue.put(item)
+    
+    def put(self, item):
+        self.queue.put(item)
+
+    def get(self):
+        return self.queue.get()
         
 def save(queue: PickleableQueue) -> None:
     serialized_queue = pickle.dumps(queue)
