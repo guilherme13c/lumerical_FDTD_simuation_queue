@@ -8,8 +8,8 @@ import os
 from datetime import timedelta
 
 ENV_JSON = 'env.json'
-LUMERICAL_EXECUTABLE = json.load(ENV_JSON)["LUMERICAL_EXECUTABLE"]
-QUEUE_SAVE_PATH = json.load(ENV_JSON)["QUEUE_SAVE_PATH"]
+LUMERICAL_EXECUTABLE = json.load(open(ENV_JSON))["LUMERICAL_EXECUTABLE"]
+QUEUE_SAVE_PATH = json.load(open(ENV_JSON))["QUEUE_SAVE_PATH"]
         
 def save(queue: queue.Queue) -> None:
     serialized_queue = pickle.dumps(queue)
